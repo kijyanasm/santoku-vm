@@ -44,8 +44,10 @@ rm -r -f /etc/default/docker
 # Update remote package metadata.  'apt-get update' is idempotent.
 apt-get update -q
 
+apt-get upgrade -q -y
+
 # Install docker.  'apt-get install' is idempotent.
-apt-get install -q -y lxc-docker-0.7.6
+apt-get install -q -y lxc-docker
 
 # Install other needed packages. 'apt-get install' is idempotent.
 apt-get install -q -y jq curl git python python-pip unzip
@@ -120,38 +122,38 @@ tmp=`mktemp -q` && {
 # backport kernel was installed but is not running).
 if [ "$NUM_INST" -gt 0 ];
 then
+    echo " "
+    echo " "
+    echo " "
+    echo "[ Next Steps ]================================================================"
+    echo " "
+    echo "1. Manually setup a USB connection for your Android device to the new VM"
+    echo " "
+    echo "	If using VMware Fusion (for example, will be similar for VirtualBox):"
+    echo "  	1. Plug your android device hardware into the computers USB port"
+    echo "  	2. Open the 'Virtual Machine Library'"
+    echo "  	3. Select the VM, e.g. 'android-vm: default', right-click and choose"
+    echo " 		   'Settings...'"
+    echo "  	4. Select 'USB & Bluetooth', check the box next to your device and set"
+    echo " 		   the 'Plug In Action' to 'Connect to Linux'"
+    echo "  	5. Plug the device into the USB port and verify that it appears when "
+    echo "         you run 'lsusb' from the command line"
+    echo " "
+    echo "2. Your device should appear when running 'lsusb' enabling you to use adb, e.g."
+    echo " "
+    echo "		$ adb devices"
+    echo "			ex. output,"
+    echo " 		       List of devices attached"
+    echo " 		       007jbmi6          device"
+    echo " "
+    echo "		$ adb shell"
+    echo " 		    i.e. to log into the device (be sure to enable USB debugging on the device)"
+    echo " "
+    echo "See the included README.md for more detail on how to run and work with this VM."
+
     echo "Rebooting down to activate new kernel."
     echo "/vagrant will not be mounted.  Use 'vagrant halt' followed by"
     echo "'vagrant up' to ensure /vagrant is mounted."
     shutdown -r now
-else 
-  echo " "
-  echo " "
-  echo " "
-  echo "[ Next Steps ]================================================================"
-  echo " "
-  echo "1. Manually setup a USB connection for your Android device to the new VM"
-  echo " "
-  echo "	If using VMware Fusion (for example, will be similar for VirtualBox):"
-  echo "  	1. Plug your android device hardware into the computers USB port"
-  echo "  	2. Open the 'Virtual Machine Library'"
-  echo "  	3. Select the VM, e.g. 'android-vm: default', right-click and choose"
-  echo " 		   'Settings...'"
-  echo "  	4. Select 'USB & Bluetooth', check the box next to your device and set"
-  echo " 		   the 'Plug In Action' to 'Connect to Linux'"
-  echo "  	5. Plug the device into the USB port and verify that it appears when "
-  echo "         you run 'lsusb' from the command line"
-  echo " "
-  echo "2. Your device should appear when running 'lsusb' enabling you to use adb, e.g."
-  echo " "
-  echo "		$ adb devices"
-  echo "			ex. output,"
-  echo " 		       List of devices attached"
-  echo " 		       007jbmi6          device"
-  echo " "
-  echo "		$ adb shell"
-  echo " 		    i.e. to log into the device (be sure to enable USB debugging on the device)"
-  echo " "
-  echo "See the included README.md for more detail on how to run and work with this VM."
 fi
 
