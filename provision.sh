@@ -27,6 +27,7 @@ fi
 
 # Adding an apt gpg key is idempotent.
 wget -q -O - https://get.docker.io/gpg | apt-key add -
+wget -q -O - http://packages.santoku-linux.com/santoku.key | apt-key add -
 
 # Creating the docker.list file is idempotent, but it may overwrite desired
 # settings if it already exists.  This could be solved with md5sum but it
@@ -50,7 +51,7 @@ apt-get install -q -y lxc-docker-0.7.6
 apt-get install -q -y jq curl git python python-pip unzip
 apt-get install -q -y libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5
 apt-get install -q -y default-jdk
-apt-get install -q -y ubuntu-desktop
+apt-get install -q -y lubuntu-desktop
 apt-get install -q -y --force-yes santoku
 
 if [ ! -e /root/android_adt.txt ]; then
